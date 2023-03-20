@@ -57,10 +57,10 @@ export default defineComponent({
 
     const addMarker = (lat: number, lng: number) => {
 
-      const point1 = google.maps.geometry.spherical.computeOffset(new google.maps.LatLng(lat, lng), 5, 0)
-      const point2 = google.maps.geometry.spherical.computeOffset(point1, 5, 90)
-      const point3 = google.maps.geometry.spherical.computeOffset(point2, 5, 180)
-      const point4 = google.maps.geometry.spherical.computeOffset(point3, 5, 270)
+      const point1 = google.maps.geometry.spherical.computeOffset(new google.maps.LatLng(lat, lng), 12, 0)
+      const point2 = google.maps.geometry.spherical.computeOffset(point1, 4.8, 90)
+      const point3 = google.maps.geometry.spherical.computeOffset(point2, 12, 180)
+      const point4 = google.maps.geometry.spherical.computeOffset(point3, 4.8, 270)
 
       const marker1: google.maps.Marker = new google.maps.Marker({
         position: { lat: point1.lat(), lng: point1.lng() },
@@ -87,28 +87,40 @@ export default defineComponent({
         "payload": {
           "waypoints": [
             {
+              "type": "takeoff",
+              "lat": 32.808549,
+              "lon": -97.156345,
+              "alt": 3
+            },
+            {
               "type": "goto",
               "lat": point1.lat(),
               "lon": point1.lng(),
-              "alt": 3
+              "alt": 2
             },
             {
               "type": "goto",
               "lat": point2.lat(),
               "lon": point2.lng(),
-              "alt": 3
+              "alt": 2
             },
             {
               "type": "goto",
               "lat": point3.lat(),
               "lon": point3.lng(),
-              "alt": 3
+              "alt": 2
             },
             {
               "type": "goto",
               "lat": point4.lat(),
               "lon": point4.lng(),
-              "alt": 3
+              "alt": 2
+            },
+            {
+              "type": "land",
+              "lat": 32.808549,
+              "lon": -97.156345,
+              "alt": 0
             }
           ]
         }
