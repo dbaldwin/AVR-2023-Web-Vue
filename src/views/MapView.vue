@@ -1,26 +1,25 @@
 <template>
-  <GoogleMap
-    api-key="AIzaSyA5dRMkbJ6t_cQqrCIuekJd4nJyVzEeSdY"
-    style="width: 100%; height: 500px"
-    :center="center"
-    :zoom="15"
-    @click="setMarker"
+  <GMapMap
+    ref="myMapRef"
+      :center="{lat: 51.093048, lng: 6.842120}"
+      :zoom="7"
+      map-type-id="terrain"
+      style="width: 100vw; height: 900px"
   >
-    <Marker :options="markerOptions" ref="markerRef" />
-  </GoogleMap>
+  </GMapMap>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from 'vue'
-import { GoogleMap, Marker } from 'vue3-google-map'
+import { defineComponent, ref, reactive, onMounted } from 'vue'
 import * as mqtt from 'mqtt/dist/mqtt.min'
 
 export default defineComponent({
-  components: { GoogleMap, Marker },
   setup() {
+    const myMapRef = ref()
     const markerRef = ref()
-    const center = { lat: 40.689247, lng: -74.044502 }
-    const markerOptions = { position: center, label: 'L', title: 'LADY LIBERTY' }
+    let markers = reactive([]);
+    const center = { lat: 32.8085988, lng: -97.1563347 }
+    const markerOptions = { }
     let client: mqtt
     let lat: Number
     let lng: Number
@@ -28,12 +27,30 @@ export default defineComponent({
     const setMarker = (event) => {
       lat = event.latLng.lat()
       lng = event.latLng.lng()
-      markerRef.value.marker.setPosition(new google.maps.LatLng(lat, lng))
+      //markerRef.value.marker.setPosition(new google.maps.LatLng(lat, lng))
+
+      addNewMarker(lat, lng);
+
       console.log(`${lat}, ${lng}`)
     }
 
     const publishLocation = () => {
       client.publish('location', JSON.stringify({ lat: lat, lng: lng }))
+    }
+
+    const addNewMarker = (event) => {
+      // const marker = new google.maps.Marker({
+      //               position: new google.maps.LatLng(lat, lng),
+      //               draggable:true,
+      //               map: mapRef.value
+      //           });
+
+      const location = { lat: event.latLng.lat(), lng: event.latLng.lng() }
+
+      console.log(location);
+
+      markers.push({ position: location });
+
     }
 
     onMounted(() => {
@@ -53,7 +70,7 @@ export default defineComponent({
       })
     })
 
-    return { center, markerOptions, markerRef, setMarker }
+    return { center  }
   }
 })
 </script>
