@@ -21,12 +21,11 @@ export default defineComponent({
 
 
         onMounted(() => {
-            client = mqtt.connect('ws://127.0.0.1:9001')
+            client = mqtt.connect(`ws://${location.hostname}:9001`)
             client.subscribe('gps')
             client.on('connect', () => {
                 console.log('connected')
             })
-
             // client.on('message', (topic: string, message: string) => {
             //     const decoded = new TextDecoder('utf-8').decode(message)
             //     const payload = JSON.parse(decoded).payload
@@ -40,23 +39,24 @@ export default defineComponent({
 
         const flyScanPattern = async () => {
 
-            const leg1 = JSON.stringify({ "action": "goto_location_ned", "payload": { "n": 5, "e": 0, "d": -3, "heading": 0 } })
-            const leg2 = JSON.stringify({ "action": "goto_location_ned", "payload": { "n": 5, "e": 5, "d": -3, "heading": 0 } })
-            const leg3 = JSON.stringify({ "action": "goto_location_ned", "payload": { "n": 10, "e": 5, "d": -3, "heading": 0 } })
-            const leg4 = JSON.stringify({ "action": "goto_location_ned", "payload": { "n": 10, "e": 0, "d": -3, "heading": 0 } })
-            const leg5 = JSON.stringify({ "action": "goto_location_ned", "payload": { "n": 15, "e": 0, "d": -3, "heading": 0 } })
-            const leg6 = JSON.stringify({ "action": "goto_location_ned", "payload": { "n": 15, "e": 5, "d": -3, "heading": 0 } })
+            const leg1 = JSON.stringify({ "action": "goto_location_ned", "payload": { "n": 1, "e": 0, "d": -3, "rel": 1, "heading": 0 } })
+            // const leg2 = JSON.stringify({ "action": "goto_location_ned", "payload": { "n": 5, "e": 5, "d": -3, "rel": 1, "heading": 0 } })
+            // const leg3 = JSON.stringify({ "action": "goto_location_ned", "payload": { "n": 10, "e": 5, "d": -3, "rel": 1, "heading": 0 } })
+            // const leg4 = JSON.stringify({ "action": "goto_location_ned", "payload": { "n": 10, "e": 0, "d": -3, "rel": 1, "heading": 0 } })
+            // const leg5 = JSON.stringify({ "action": "goto_location_ned", "payload": { "n": 15, "e": 0, "d": -3, "rel": 1, "heading": 0 } })
+            // const leg6 = JSON.stringify({ "action": "goto_location_ned", "payload": { "n": 15, "e": 5, "d": -3, "rel": 1, "heading": 0 } })
 
             client.publish("avr/fcm/actions", leg1)
-            await wait(5000)
-            client.publish("avr/fcm/actions", leg2)
-            await wait(5000)
-            client.publish("avr/fcm/actions", leg3)
-            await wait(5000)
-            client.publish("avr/fcm/actions", leg4)
-            await wait(5000)
-            client.publish("avr/fcm/actions", leg5)
-            await wait(5000)
+
+            // await wait(5000)
+            // client.publish("avr/fcm/actions", leg2)
+            // await wait(5000)
+            // client.publish("avr/fcm/actions", leg3)
+            // await wait(5000)
+            // client.publish("avr/fcm/actions", leg4)
+            // await wait(5000)
+            // client.publish("avr/fcm/actions", leg5)
+            // await wait(5000)
 
         }
 
