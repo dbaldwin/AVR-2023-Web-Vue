@@ -22,6 +22,11 @@ const router = createRouter({
       path: '/google-map',
       name: 'google',
       component: () => import('../views/GoogleView.vue')
+    },
+    {
+      path: '/scan',
+      name: 'scan',
+      component: () => import('../views/ScanView.vue')
     }
   ]
 })
