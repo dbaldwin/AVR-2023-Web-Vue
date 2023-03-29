@@ -8,6 +8,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, reactive, onMounted } from 'vue'
+// @ts-ignore
 import * as mqtt from 'mqtt/dist/mqtt.min'
 
 export default defineComponent({
