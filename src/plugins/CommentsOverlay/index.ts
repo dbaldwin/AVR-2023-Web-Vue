@@ -1,5 +1,5 @@
 export default {
-  install: (vue, options) => {
+  install: (vue: any, options: any) => {
     console.log('Installing the CommentsOverlay plugin!')
   }
 }

@@ -6,5 +6,5 @@ import CommentsOverlay from './plugins/CommentsOverlay'
 
 const app = createApp(App)
 app.use(router)
-app.use(CommentsOverlay)
+//app.use(CommentsOverlay)
 app.mount('#app')

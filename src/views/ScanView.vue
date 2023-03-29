@@ -21,17 +21,17 @@ export default defineComponent({
 
 
         onMounted(() => {
-            client = mqtt.connect('ws://192.168.86.45:9001')
+            client = mqtt.connect('ws://127.0.0.1:9001')
             client.subscribe('gps')
             client.on('connect', () => {
                 console.log('connected')
             })
 
-            client.on('message', (topic: string, message: string) => {
-                const decoded = new TextDecoder('utf-8').decode(message)
-                const payload = JSON.parse(decoded).payload
-                console.log(payload.lat)
-            })
+            // client.on('message', (topic: string, message: string) => {
+            //     const decoded = new TextDecoder('utf-8').decode(message)
+            //     const payload = JSON.parse(decoded).payload
+            //     console.log(payload.lat)
+            // })
         })
 
         const captureHome = () => {

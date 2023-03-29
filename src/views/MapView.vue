@@ -1,16 +1,12 @@
 <template>
-  <GMapMap
-    ref="myMapRef"
-      :center="{lat: 51.093048, lng: 6.842120}"
-      :zoom="7"
-      map-type-id="terrain"
-      style="width: 100vw; height: 900px"
-  >
+  <GMapMap ref="myMapRef" :center="{ lat: 51.093048, lng: 6.842120 }" :zoom="7" map-type-id="terrain"
+    style="width: 100vw; height: 900px">
   </GMapMap>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, reactive, onMounted } from 'vue'
+// @ts-ignore
 import * as mqtt from 'mqtt/dist/mqtt.min'
 
 export default defineComponent({
@@ -19,38 +15,13 @@ export default defineComponent({
     const markerRef = ref()
     let markers = reactive([]);
     const center = { lat: 32.8085988, lng: -97.1563347 }
-    const markerOptions = { }
+    const markerOptions = {}
     let client: mqtt
     let lat: Number
     let lng: Number
 
-    const setMarker = (event) => {
-      lat = event.latLng.lat()
-      lng = event.latLng.lng()
-      //markerRef.value.marker.setPosition(new google.maps.LatLng(lat, lng))
-
-      addNewMarker(lat, lng);
-
-      console.log(`${lat}, ${lng}`)
-    }
-
     const publishLocation = () => {
       client.publish('location', JSON.stringify({ lat: lat, lng: lng }))
-    }
-
-    const addNewMarker = (event) => {
-      // const marker = new google.maps.Marker({
-      //               position: new google.maps.LatLng(lat, lng),
-      //               draggable:true,
-      //               map: mapRef.value
-      //           });
-
-      const location = { lat: event.latLng.lat(), lng: event.latLng.lng() }
-
-      console.log(location);
-
-      markers.push({ position: location });
-
     }
 
     onMounted(() => {
@@ -60,17 +31,17 @@ export default defineComponent({
         console.log('connected')
       })
 
-      client.on('message', (topic: string, message: string) => {
-        const decoded = new TextDecoder('utf-8').decode(message)
-        const payload = JSON.parse(decoded).payload
+      // client.on('message', (topic: string, message: string) => {
+      //   const decoded = new TextDecoder('utf-8').decode(message)
+      //   const payload = JSON.parse(decoded).payload
 
-        console.log(payload.lat)
+      //   console.log(payload.lat)
 
-        markerRef.value.marker.setPosition(new google.maps.LatLng(payload.lat, payload.lon))
-      })
+      //   markerRef.value.marker.setPosition(new google.maps.LatLng(payload.lat, payload.lon))
+      // })
     })
 
-    return { center  }
+    return { center }
   }
 })
 </script>
