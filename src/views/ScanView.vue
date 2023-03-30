@@ -3,8 +3,8 @@
         <button @click="captureHome">Capture Home Location</button>&nbsp;
         <button @click="takeOff">Takeoff</button>&nbsp;
         <button @click="flyScanPattern">Fly Scan Pattern</button>&nbsp;
-        <button @click="land">Land</button>&nbsp;
-        <button @click="goHome">Go Home</button>
+        <button @click="goHome">Go Home</button>&nbsp;
+        <button @click="land">Land</button>
     </div>
 </template>
 
